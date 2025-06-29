@@ -12,7 +12,7 @@ const TelegramAuthForm: FC<IProps> = ({ updIsTgConnect }) => {
   };
 
   return phone ? (
-    <VerifyCodeForm updIsTgConnect={updIsTgConnect} />
+    <VerifyCodeForm updIsTgConnect={updIsTgConnect} phone={phone} />
   ) : (
     <RegisterPhoneForm updatePhone={updatePhone} />
   );

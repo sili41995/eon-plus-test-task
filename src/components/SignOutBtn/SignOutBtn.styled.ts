@@ -6,7 +6,7 @@ export const Button = styled.button`
   min-width: 100px;
   padding: ${({ theme }) => theme.spacing(3)}px;
   background-color: ${({ theme }) => theme.colors.redLight};
-  border-radius: 10;
+  border-radius: 6px;
   border: none;
   color: ${({ theme }) => theme.colors.white};
   text-align: center;

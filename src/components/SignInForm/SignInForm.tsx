@@ -1,13 +1,13 @@
+import { FC, useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormErrorMessages, FormFields, regExp, Titles } from '@/constants';
 import { selectIsLoading, selectSignIn } from '@/store/auth/selectors';
 import { useAuthStore } from '@/store/store';
 import { Credentials } from '@/types/authStore.types';
 import { toasts } from '@/utils';
-import { FC, useEffect } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { Form } from './SignInForm.styled';
 import AuthFormInput from '@/components/AuthFormInput';
 import AuthFormBtn from '@/components/AuthFormBtn';
+import { Form } from './SignInForm.styled';
 
 const SignInForm: FC = () => {
   const {
@@ -28,8 +28,14 @@ const SignInForm: FC = () => {
     }
   }, [isSubmitting, errors]);
 
-  const handleFormSubmit: SubmitHandler<Credentials> = (data) => {
-    signIn(data);
+  const handleFormSubmit: SubmitHandler<Credentials> = async (data) => {
+    try {
+      await signIn(data);
+    } catch (error) {
+      if (error instanceof Error) {
+        toasts.errorToast(error.message);
+      }
+    }
   };
 
   return (
@@ -62,7 +68,7 @@ const SignInForm: FC = () => {
           }),
         }}
       />
-      <AuthFormBtn title={Titles.signUp} disabled={isLoading} />
+      <AuthFormBtn title={Titles.signIn} disabled={isLoading} />
     </Form>
   );
 };

@@ -1,3 +1,5 @@
+import { Outlet } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import { FC, useEffect, useState } from 'react';
 import Section from '@/components/Section';
 import GeneralContainer from '@/components/GeneralContainer';
@@ -5,7 +7,6 @@ import PageContent from '@/components/PageContent';
 import PageTitle from '@/components/PageTitle';
 import { PageTitles } from '@/constants';
 import { ChatsOrNull } from '@/types/chats.types';
-import { AxiosError } from 'axios';
 import { toasts } from '@/utils';
 import { chatsService } from '@/services';
 import Chats from '@/components/Chats';
@@ -21,7 +22,7 @@ const ChatsPage: FC = () => {
   };
 
   useEffect(() => {
-    const getBoards = async () => {
+    const getChats = async () => {
       try {
         setIsLoading(true);
 
@@ -39,7 +40,7 @@ const ChatsPage: FC = () => {
       }
     };
 
-    isTgConnect && getBoards();
+    isTgConnect && getChats();
   }, [isTgConnect]);
 
   return (
@@ -48,7 +49,10 @@ const ChatsPage: FC = () => {
         <PageContent>
           <PageTitle title={PageTitles.chats} />
           {chats ? (
-            <Chats chats={chats} isLoading={isLoading} />
+            <>
+              <Outlet />
+              <Chats chats={chats} isLoading={isLoading} />
+            </>
           ) : (
             <TelegramAuthForm updIsTgConnect={updIsTgConnect} />
           )}

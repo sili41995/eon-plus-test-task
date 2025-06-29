@@ -3,7 +3,8 @@ const enum FormErrorMessages {
   passwordReqErr = 'Password field must be filled inе',
   phoneReqErr = 'Phone field must be filled in',
   emailReqErr = 'Email field must be filled in',
-  emailRegExpErr = 'mail may contain only Latin letters, numbers, dots, hyphens, underscores, and the symbols %, +',
+  emailRegExpErr = 'Email may contain only Latin letters, numbers, dots, hyphens, underscores, and the symbols %, +',
+  phoneRegExpErr = "Phone must start with '+' and contain between 10 and 15 digits.",
 }
 
 export default FormErrorMessages;

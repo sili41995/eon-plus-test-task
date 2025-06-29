@@ -4,6 +4,8 @@ const enum Titles {
   signUp = 'Sign Up',
   signIn = 'Sign in',
   connect = 'Connect',
+  verify = 'Verify',
+  close = 'Close',
 }
 
 export default Titles;

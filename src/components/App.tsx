@@ -36,11 +36,12 @@ const App: FC = () => {
         <Route
           path={PagePaths.chats}
           element={<PrivateRoute element={<ChatsPage />} />}
-        />
-        <Route
-          path={`${PagePaths.chats}/:${PagePaths.dynamicParam}`}
-          element={<PrivateRoute element={<ChatDetailsPage />} />}
-        />
+        >
+          <Route
+            path={`${PagePaths.chats}/:${PagePaths.dynamicParam}`}
+            element={<PrivateRoute element={<ChatDetailsPage />} />}
+          />
+        </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Route>
     </Routes>

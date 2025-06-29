@@ -1,6 +1,5 @@
 import setState from '@/store/setState';
 import { LocalStorageKeys } from '@/constants';
-import initialState from './initialState';
 import {
   Credentials,
   GetAuthStateFunc,
@@ -24,6 +23,7 @@ import {
   signOut,
   changeIsRefreshing,
 } from './operations';
+import initialState from './initialState';
 
 const savedToken = localStorage.load(LocalStorageKeys.token);
 

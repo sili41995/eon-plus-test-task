@@ -7,9 +7,11 @@ interface ITheme {
     black: string;
     white: string;
     grey: string;
+    greyLight: string;
     primary: string;
     red: string;
     redLight: string;
+    green: string;
   };
   padding: {
     container: number;
@@ -26,6 +28,8 @@ const theme: ITheme = {
     red: '#d3232f',
     redLight: '#ff9192',
     grey: '#888888',
+    greyLight: '#555555',
+    green: '#00c938',
   },
   padding: {
     container: 16,

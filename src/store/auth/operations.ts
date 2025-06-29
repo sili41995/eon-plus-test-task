@@ -9,7 +9,7 @@ import {
   UserInfo,
   IChangeIsRefreshingProps,
 } from '@/types/authStore.types';
-import { authService } from '@/services';
+import { authService, chatsService } from '@/services';
 import initialState from './initialState';
 import operationWrapper from './operationWrapper';
 
@@ -47,6 +47,7 @@ const signInOperation = async ({
 const signOutOperation = async ({
   set,
 }: IAuthOperationProps): Promise<ISignOutRes | undefined> => {
+  await chatsService.disconnect();
   const result = await authService.signOut();
 
   set(initialState);

@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, RefObject } from 'react';
 import { Location } from 'react-router-dom';
 import { PagePaths, PageTitles } from '@/constants';
 
@@ -16,10 +16,6 @@ export type BtnClickEvent = MouseEvent<HTMLButtonElement>;
 export type SetBooleanFunc = (data: boolean) => void;
 
 export type SetStringFunc = (data: string) => void;
-
-// export type Func = () => void;
-
-// export type OnBtnClickFunc = (e: BtnClickEvent) => void;
 
 // other
 export interface INavLinks {
@@ -50,3 +46,5 @@ export interface ILocation extends PageLocation {
 }
 
 export type InputType = 'text' | 'email' | 'password' | 'tel';
+
+export type RefDivObject = RefObject<HTMLDivElement>;

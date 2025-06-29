@@ -1,22 +1,22 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { FC, useEffect, useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { AxiosError } from 'axios';
-import { FormErrorMessages, FormFields, regExp, Titles } from '@/constants';
-import { IPhone } from '@/types/chats.types';
+import { FormFields, Titles } from '@/constants';
+import { chatsService } from '@/services';
+import { ICode } from '@/types/chats.types';
 import { toasts } from '@/utils';
 import AuthFormInput from '@/components/AuthFormInput';
 import AuthFormBtn from '@/components/AuthFormBtn';
-import { chatsService } from '@/services';
-import { Form } from './RegisterPhoneForm.styled';
-import { IProps } from './RegisterPhoneForm.types';
+import { IProps } from './VerifyCodeForm.types';
+import { Form } from './VerifyCodeForm.styled';
 
-const RegisterPhoneForm: FC<IProps> = ({ updatePhone }) => {
+const VerifyCodeForm: FC<IProps> = ({ updIsTgConnect, phone }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm<IPhone>();
+  } = useForm<ICode>();
 
   useEffect(() => {
     const errorsData = Object.values(errors);
@@ -28,13 +28,13 @@ const RegisterPhoneForm: FC<IProps> = ({ updatePhone }) => {
     }
   }, [isSubmitting, errors]);
 
-  const handleFormSubmit: SubmitHandler<IPhone> = async (data) => {
+  const handleFormSubmit: SubmitHandler<ICode> = async (data) => {
     try {
       setIsLoading(true);
 
-      await chatsService.connect(data);
+      await chatsService.verify({ ...data, phone });
 
-      updatePhone(data.phone);
+      updIsTgConnect(true);
     } catch (error) {
       if (error instanceof AxiosError) {
         const errorMsg = error.response?.data.detail;
@@ -49,21 +49,17 @@ const RegisterPhoneForm: FC<IProps> = ({ updatePhone }) => {
   return (
     <Form onSubmit={handleSubmit(handleFormSubmit)}>
       <AuthFormInput
-        title={FormFields.phone}
-        type='tel'
+        title={FormFields.code}
+        type='text'
         settings={{
-          ...register('phone', {
+          ...register('code', {
             required: true,
-            pattern: {
-              value: regExp.phone,
-              message: FormErrorMessages.phoneRegExpErr,
-            },
           }),
         }}
       />
-      <AuthFormBtn title={Titles.connect} disabled={isLoading} />
+      <AuthFormBtn title={Titles.verify} disabled={isLoading} />
     </Form>
   );
 };
 
-export default RegisterPhoneForm;
+export default VerifyCodeForm;

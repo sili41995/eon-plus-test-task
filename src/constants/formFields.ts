@@ -3,6 +3,7 @@ const enum FormFields {
   email = 'email',
   password = 'password',
   phone = 'phone',
+  code = 'code',
 }
 
 export default FormFields;

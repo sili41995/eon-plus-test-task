@@ -1,7 +1,6 @@
 import { AxiosError } from 'axios';
 import { GetAuthStateFunc, SetAuthStateFunc } from '@/types/authStore.types';
 import initialState from './initialState';
-import { toasts } from '@/utils';
 
 const operationWrapper = <T, K>(
   operation: (data: {
@@ -24,7 +23,6 @@ const operationWrapper = <T, K>(
         const message = error.response?.data.detail;
 
         data.set({ error: message });
-        toasts.errorToast(message);
 
         throw new Error(message);
       }

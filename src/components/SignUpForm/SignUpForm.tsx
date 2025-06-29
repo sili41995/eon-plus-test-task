@@ -1,13 +1,20 @@
-import { FormErrorMessages, FormFields, regExp, Titles } from '@/constants';
+import { useNavigate } from 'react-router-dom';
+import { FC, useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import {
+  FormErrorMessages,
+  FormFields,
+  PagePaths,
+  regExp,
+  Titles,
+} from '@/constants';
 import { selectIsLoading, selectSignUp } from '@/store/auth/selectors';
 import { useAuthStore } from '@/store/store';
 import { NewUser } from '@/types/authStore.types';
 import { toasts } from '@/utils';
-import { FC, useEffect } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { Form } from './SignUpForm.styled';
 import AuthFormInput from '@/components/AuthFormInput';
 import AuthFormBtn from '@/components/AuthFormBtn';
+import { Form } from './SignUpForm.styled';
 
 const SignUpForm: FC = () => {
   const {
@@ -17,6 +24,7 @@ const SignUpForm: FC = () => {
   } = useForm<NewUser>();
   const signUp = useAuthStore(selectSignUp);
   const isLoading = useAuthStore(selectIsLoading);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const errorsData = Object.values(errors);
@@ -28,8 +36,16 @@ const SignUpForm: FC = () => {
     }
   }, [isSubmitting, errors]);
 
-  const handleFormSubmit: SubmitHandler<NewUser> = (data) => {
-    signUp(data);
+  const handleFormSubmit: SubmitHandler<NewUser> = async (data) => {
+    try {
+      await signUp(data);
+
+      navigate(PagePaths.signIn);
+    } catch (error) {
+      if (error instanceof Error) {
+        toasts.errorToast(error.message);
+      }
+    }
   };
 
   return (
