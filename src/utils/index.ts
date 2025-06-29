@@ -5,3 +5,4 @@ export { default as setAuthStoreItem } from './setAuthStoreItem';
 export { default as removeAuthStoreItem } from './removeAuthStoreItem';
 export { default as getAuthStoreItem } from './getAuthStoreItem';
 export { default as setLabelBgColor } from './setLabelBgColor';
+export { default as makeScroll } from './makeScroll';

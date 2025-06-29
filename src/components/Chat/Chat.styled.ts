@@ -9,6 +9,7 @@ export const List = styled.ul`
 
 export const ListItem = styled.li<IStyledListItemProps>`
   align-self: ${({ isCurrentUser }) => isCurrentUser && 'flex-end'};
+  max-width: 70vw;
 `;
 
 export const Container = styled.div<IStyledContainerProps>`

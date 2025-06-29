@@ -5,7 +5,7 @@ import PageContent from '@/components/PageContent';
 import Chat from '@/components/Chat';
 import Loader from '@/components/Loader';
 import { MessagesOrNull } from '@/types/chats.types';
-import { toasts } from '@/utils';
+import { makeScroll, toasts } from '@/utils';
 import { chatsService } from '@/services';
 import { useDynamicParam } from '@/hooks';
 import { Titles } from '@/constants';
@@ -20,10 +20,7 @@ const ChatDetailsPage: FC = () => {
     const content = contentRef.current;
 
     if (content) {
-      content.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
+      makeScroll(content);
     }
   }, []);
 
